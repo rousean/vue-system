@@ -1,0 +1,11 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "trailingComma": "none",
+  "prettier.tabWidth": 2,
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
