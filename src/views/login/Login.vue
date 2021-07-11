@@ -2,11 +2,11 @@
   <div class="login-container">
     <h1 style="color:white">同源性分析系统</h1>
     <div class="login-content">
-      <h3>用户登录</h3>
+      <h2>用户登录</h2>
       <el-form
-        ref="form"
-        :model="form"
         class="login-form"
+        ref="loginForm"
+        :model="loginForm"
         autocomplete="on"
         label-position="left"
       >
@@ -16,7 +16,8 @@
           </span>
           <el-input
             ref="username"
-            v-model="form.user"
+            v-model="loginForm.username"
+            placeholder="请输入用户名"
             name="username"
             type="text"
             tabindex="1"
@@ -25,10 +26,11 @@
         </el-form-item>
         <el-tooltip
           class="item"
-          effect="dark"
-          content="Right Bottom 提示文字"
+          effect="light"
+          content="大写锁定已打开"
           placement="right-end"
-          :disabled="isDisabled"
+          v-model="isCapsLock"
+          manual
         >
           <el-form-item>
             <span class="svg-container">
@@ -36,8 +38,14 @@
             </span>
             <el-input
               ref="password"
+              v-model="loginForm.password"
+              name="password"
+              placeholder="请输入密码"
               :type="passwordType"
-              v-model="form.password"
+              tabindex="1"
+              autocomplete="on"
+              @keyup.native="checkCapsLock"
+              @blur="isCapsLock = false"
             ></el-input>
             <span class="svg-eye" @click="changePasswordType">
               <svg-icon
@@ -58,12 +66,21 @@
 export default {
   data() {
     return {
-      form: {
-        user: 'admin',
-        password: '111111'
+      loginForm: {
+        username: '',
+        password: ''
       },
+      // 输入框是否为password类型
       passwordType: 'password',
-      isDisabled: 'false'
+      // 是否显示提示文字
+      isCapsLock: false
+    }
+  },
+  mounted() {
+    if (this.loginForm.username === '') {
+      this.$refs.username.focus()
+    } else if (this.loginForm.password === '') {
+      this.$refs.password.focus()
     }
   },
   methods: {
@@ -76,6 +93,10 @@ export default {
       this.$nextTick(() => {
         this.$refs.password.focus()
       })
+    },
+    checkCapsLock(e) {
+      const { key } = e
+      this.isCapsLock = key && key.length === 1 && key >= 'A' && key <= 'Z'
     }
   }
 }
@@ -132,9 +153,9 @@ $cursor: #fff;
   background-repeat: no-repeat;
   background-attachment: fixed;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
 }
 .login-content {
   width: 500px;
