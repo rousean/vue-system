@@ -2,15 +2,16 @@
   <div class="login-container">
     <h1 style="color:white">同源性分析系统</h1>
     <div class="login-content">
-      <h2>用户登录</h2>
+      <h2>欢迎登录</h2>
       <el-form
         class="login-form"
         ref="loginForm"
         :model="loginForm"
+        :rules="loginRules"
         autocomplete="on"
         label-position="left"
       >
-        <el-form-item>
+        <el-form-item prop="username">
           <span class="svg-container">
             <svg-icon iconClass="user"></svg-icon>
           </span>
@@ -32,7 +33,7 @@
           v-model="isCapsLock"
           manual
         >
-          <el-form-item>
+          <el-form-item prop="password">
             <span class="svg-container">
               <svg-icon iconClass="password"></svg-icon>
             </span>
@@ -46,6 +47,7 @@
               autocomplete="on"
               @keyup.native="checkCapsLock"
               @blur="isCapsLock = false"
+              @keyup.enter.native="userLogin"
             ></el-input>
             <span class="svg-eye" @click="changePasswordType">
               <svg-icon
@@ -56,7 +58,9 @@
             </span>
           </el-form-item>
         </el-tooltip>
-        <el-button>登录</el-button>
+        <el-button type="primary" @click.native.prevent="userLogin"
+          >登录</el-button
+        >
       </el-form>
     </div>
   </div>
@@ -65,10 +69,41 @@
 <script>
 export default {
   data() {
+    const validateUsername = (rule, value, callback) => {
+      let enReg = /^[a-z]+$/
+      let emailReg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+      let phoneReg = /^(?:(?:\+|00)86)?1\d{10}$/
+      if (enReg.test(value) | emailReg.test(value) | phoneReg.test(value)) {
+        callback()
+      } else {
+        callback(new Error('用户名为英文、邮箱或者手机号！'))
+      }
+    }
+    const validatePassword = (rule, value, callback) => {
+      // 登录密码长度至少8位,必须符合由数字,大写字母,小写字母,特殊符,至少其中三种组成密码
+      //var reg = /^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_!@#$%^&*`~()-+=]+$)(?![a-z0-9]+$)(?![a-z\\W_!@#$%^&*`~()-+=]+$)(?![0-9\\W_!@#$%^&*`~()-+=]+$)[a-zA-Z0-9\\W_!@#$%^&*`~()-+=]{8,30}$/
+      var passwordReg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$/
+      if (!passwordReg.test(value)) {
+        callback(new Error('包含数字,大写,小写且8-10位的字符串!'))
+      } else {
+        callback()
+      }
+    }
+
     return {
       loginForm: {
         username: '',
         password: ''
+      },
+      loginRules: {
+        username: [
+          { required: true, message: '用户名不能为空！', trigger: 'blur' },
+          { validator: validateUsername, trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '密码不能为空！', trigger: 'blur' },
+          { validator: validatePassword, trigger: 'blur' }
+        ]
       },
       // 输入框是否为password类型
       passwordType: 'password',
@@ -97,6 +132,16 @@ export default {
     checkCapsLock(e) {
       const { key } = e
       this.isCapsLock = key && key.length === 1 && key >= 'A' && key <= 'Z'
+    },
+    userLogin() {
+      this.$refs.loginForm.validate(valide => {
+        if (valide) {
+          alert('登录成功')
+        } else {
+          alert('error submit!!')
+          return false
+        }
+      })
     }
   }
 }
@@ -143,7 +188,7 @@ $cursor: #fff;
 }
 </style>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .login-container {
   min-height: 100vh;
   width: 100%;
