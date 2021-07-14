@@ -2,24 +2,21 @@
   <div class="login-container">
     <div class="container" :class="{ switch: isShow }">
       <div class="container-form container-signup">
-        <Register></Register>
+        <Register ref="register"></Register>
       </div>
       <div class="container-form container-signin">
-        <Login></Login>
+        <Login ref="login"></Login>
       </div>
       <div class="container-overlay">
         <div class="overlay">
-          <div class="overlay-slide overlay-left">
+          <div
+            class="overlay-slide"
+            :class="isShow ? 'overlay-left' : 'overlay-right'"
+          >
             <div class="title">路漫漫其修远兮 吾将上下而求索</div>
-            <el-button type="danger" @click.native.prevent="goSignIn"
-              >登录</el-button
-            >
-          </div>
-          <div class="overlay-slide overlay-right">
-            <div class="title">路漫漫其修远兮 吾将上下而求索</div>
-            <el-button type="danger" @click.native.prevent="goSignUp"
-              >注册</el-button
-            >
+            <el-button type="success" @click.native.prevent="sign">{{
+              isShow ? '登录' : '注册'
+            }}</el-button>
           </div>
         </div>
       </div>
@@ -41,10 +38,12 @@ export default {
     Login
   },
   methods: {
-    goSignIn() {
-      this.isShow = !this.isShow
-    },
-    goSignUp() {
+    sign() {
+      if (this.isShow) {
+        this.$refs.login.focus()
+      } else {
+        this.$refs.register.focus()
+      }
       this.isShow = !this.isShow
     }
   }
@@ -193,17 +192,5 @@ $cursor: #fff;
   font-family: 'Times New Roman', Times, serif;
   font-size: 30px;
   font-weight: 1000;
-}
-.submit {
-  padding: 1rem 3rem;
-  background-image: -webkit-linear-gradient(40deg, #0367a6 0%, #008997 70%);
-  border-radius: 1rem;
-  color: #fff;
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: transform 0.1s ease-in-out;
-}
-.submit:active {
-  transform: scale(0.95);
 }
 </style>

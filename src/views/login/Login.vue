@@ -37,10 +37,9 @@
           </span>
           <el-input
             ref="password"
-            v-model="loginForm.password"
-            name="password"
-            placeholder="请输入密码"
             :type="passwordType"
+            v-model="loginForm.password"
+            placeholder="请输入密码"
             tabindex="1"
             autocomplete="on"
             @keyup.native="checkCapsLock"
@@ -118,8 +117,24 @@ export default {
     } else if (this.loginForm.password === '') {
       this.$refs.password.focus()
     }
+    // 注册组件注册完毕传值登录
+    this.bus.$on('submit', data => {
+      const { username, password } = data
+      this.loginForm.username = username
+      this.loginForm.password = password
+      this.$refs.username.focus()
+      this.$refs.password.focus()
+      this.disabled = false
+    })
   },
   methods: {
+    focus() {
+      if (this.loginForm.username === '') {
+        this.$refs.username.focus()
+      } else if (this.loginForm.password === '') {
+        this.$refs.password.focus()
+      }
+    },
     // 通过点击眼睛图标切换密码输入的类型
     changePasswordType() {
       if (this.passwordType === 'password') {
@@ -179,17 +194,5 @@ export default {
   color: #696e70;
   cursor: pointer;
   user-select: none;
-}
-.submit {
-  padding: 1rem 3rem;
-  background-image: -webkit-linear-gradient(40deg, #0367a6 0%, #008997 70%);
-  border-radius: 1rem;
-  color: #fff;
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: transform 0.1s ease-in-out;
-}
-.submit:active {
-  transform: scale(0.95);
 }
 </style>
