@@ -40,7 +40,9 @@ function http(url, data = {}, type = 'GET') {
       promise = axios.post(url, data)
     }
     // 返回Promise
-    promise.then(response => resolve(response.data)).catch(error => reject(error))
+    promise
+      .then(response => resolve(response.data))
+      .catch(error => reject(error))
   })
 }
 

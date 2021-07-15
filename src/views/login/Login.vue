@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import { login } from '../../api'
 export default {
   data() {
     const validateUsername = (rule, value, callback) => {
@@ -161,9 +162,12 @@ export default {
     },
     // 用户登录
     userLogin() {
-      this.$refs.loginForm.validate(valide => {
+      this.$refs.loginForm.validate(async valide => {
         if (valide) {
-          alert('登录成功')
+          const username = this.loginForm.username
+          const password = this.loginForm.password
+          const result = await login(username, password)
+          console.log(result)
         } else {
           alert('error submit!!')
           return false
