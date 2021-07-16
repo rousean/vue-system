@@ -1,8 +1,16 @@
 import axios from 'axios'
+import { getLocalStorage } from '../util/storage'
 
+// 请求拦截器
 axios.interceptors.request.use(
   config => {
     console.log('请求拦截器执行了')
+    console.log(config)
+    // 请求加上token
+    if (getLocalStorage('token')) {
+      config.headers.Authorization = getLocalStorage('token')
+    }
+
     return config
   },
   error => {
@@ -10,9 +18,11 @@ axios.interceptors.request.use(
   }
 )
 
+// 响应拦截器
 axios.interceptors.response.use(
   response => {
     console.log('响应拦截器执行了')
+    console.log(response)
     return response
   },
   error => {
@@ -40,8 +50,11 @@ function http(url, data = {}, type = 'GET') {
       promise = axios.post(url, data)
     }
     // 返回Promise
+
     promise
-      .then(response => resolve(response.data))
+      .then(response => {
+        resolve(response.data)
+      })
       .catch(error => reject(error))
   })
 }

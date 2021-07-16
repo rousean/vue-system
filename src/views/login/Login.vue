@@ -67,6 +67,7 @@
 
 <script>
 import { login } from '../../api'
+import { save } from '../../util/storage'
 export default {
   data() {
     const validateUsername = (rule, value, callback) => {
@@ -167,7 +168,8 @@ export default {
           const username = this.loginForm.username
           const password = this.loginForm.password
           const result = await login(username, password)
-          console.log(result)
+          save(result.token)
+          console.log('登录成功')
         } else {
           alert('error submit!!')
           return false
