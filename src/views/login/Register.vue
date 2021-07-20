@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { register } from '../../api'
+import { reqRegister } from '../../api'
 export default {
   data() {
     let validateUsername = (rule, value, callback) => {
@@ -162,7 +162,7 @@ export default {
         if (valid) {
           const username = this.registerForm.username
           const password = this.registerForm.password
-          const result = await register(username, password)
+          const result = await reqRegister(username, password)
           if (result.code == 200) {
             this.$confirm('您已注册成功,是否为您跳转登录页面？', '', {
               distinguishCancelAndClose: true,

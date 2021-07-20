@@ -66,8 +66,6 @@
 </template>
 
 <script>
-import { login } from '../../api'
-import { setLocalStorage } from '../../util/storage'
 export default {
   data() {
     const validateUsername = (rule, value, callback) => {
@@ -91,12 +89,12 @@ export default {
       }
     }
     return {
-      // 输入框是否为password类型
-      passwordType: 'password',
-      // 是否显示提示文字
-      isCapsLock: false,
+      passwordType: 'password', // 输入框是否为password类型
+      isCapsLock: false, // 是否显示提示文字
       loading: false,
       disabled: true,
+      redirect: undefined,
+      otherQuery: {},
       loginForm: {
         username: '',
         password: ''
@@ -111,6 +109,18 @@ export default {
           { validator: validatePassword, trigger: 'blur' }
         ]
       }
+    }
+  },
+  watch: {
+    $route: {
+      handler: function(route) {
+        const query = route.query
+        if (query) {
+          this.redirect = query.redirect
+          this.otherQuery = this.getOtherQuery(query)
+        }
+      },
+      immediate: true
     }
   },
   mounted() {
@@ -130,6 +140,14 @@ export default {
     })
   },
   methods: {
+    getOtherQuery(query) {
+      return Object.keys(query).reduce((acc, cur) => {
+        if (cur !== 'redirect') {
+          acc[cur] = query[cur]
+        }
+        return acc
+      }, {})
+    },
     focus() {
       if (this.loginForm.username === '') {
         this.$refs.username.focus()
@@ -163,12 +181,21 @@ export default {
     },
     // 用户登录
     userLogin() {
-      this.$refs.loginForm.validate(async valide => {
+      this.$refs.loginForm.validate(valide => {
         if (valide) {
-          const username = this.loginForm.username
-          const password = this.loginForm.password
-          const result = await login(username, password)
-          setLocalStorage('token', result.token)
+          this.loading = true
+          this.$store
+            .dispatch('postLogin', this.loginForm)
+            .then(result => {
+              this.$router.push({
+                path: this.redirect || '/dashboard',
+                query: this.otherQuery
+              })
+              this.loading = false
+            })
+            .catch(error => {
+              this.loading = false
+            })
         } else {
           alert('error submit!!')
           return false

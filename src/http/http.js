@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { getLocalStorage } from '../util/storage'
+import { getLocalStorage, clearLocalStorage } from '../util/storage'
+import { Notification } from 'element-ui'
 
 // 存储请求
 const pendingMap = new Map()
@@ -31,7 +32,9 @@ function http(url, data = {}, type = 'GET') {
     }
     // 返回Promise
     promise
-      .then(response => resolve(response.data))
+      .then(response => {
+        resolve(response.data)
+      })
       .catch(error => reject(error))
   })
 }
@@ -58,15 +61,42 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   response => {
     removePending(response.config)
-    return response
+    return responseHandle(response)
   },
   error => {
     error.config && removePending(error.config)
-    console.log(error.response.data)
-    // const message = httpErrorStatusHandle(error)
     return Promise.reject(error)
   }
 )
+
+function responseHandle(response) {
+  if (response.data.code === 1) {
+    Notification({
+      title: '登录成功',
+      message: '欢迎您登录!',
+      type: 'success'
+    })
+    return response
+  }
+  if (response.data.code === 0) {
+    Notification({
+      title: '操作失败',
+      message: response.data.message,
+      type: 'error'
+    })
+    return Promise.reject(response)
+  }
+  if (response.data.code === 402) {
+    Notification({
+      title: '认证异常',
+      message: '登录状态已过期，请重新登录！',
+      type: 'error'
+    })
+    clearLocalStorage()
+    return Promise.reject(response)
+    // window.location.href = window.location.origin
+  }
+}
 
 /**
  * 处理异常
