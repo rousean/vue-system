@@ -1,9 +1,9 @@
 // localStorge方法封装
-export const setLocalStorage = (localKey, data) => {
+export function setLocalStorage(localKey, data) {
   window.localStorage.setItem(localKey, JSON.stringify(data))
 }
 
-export const getLocalStorage = localKey => {
+export function getLocalStorage(localKey) {
   const localData = window.localStorage.getItem(localKey)
   if (localData && localData !== '') {
     return JSON.parse(localData)
@@ -12,6 +12,6 @@ export const getLocalStorage = localKey => {
   }
 }
 
-export const clearLocalStorage = localKey => {
+export function clearLocalStorage(localKey) {
   window.localStorage.setItem(localKey, '')
 }

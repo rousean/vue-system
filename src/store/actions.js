@@ -3,8 +3,6 @@ import { setLocalStorage } from '../util/storage'
 
 import { SET_TOKEN } from './mutation-types'
 
-import { handlePromise } from '../util/handle-promise'
-
 export default {
   async postLogin({ commit }, userInfo) {
     const { username, password } = userInfo
