@@ -1,0 +1,76 @@
+<template>
+  <el-scrollbar>
+    <el-menu background-color="rgb(25, 26, 35)" text-color="#fff" unique-opened>
+      <el-menu-item index="首页">
+        <i class="el-icon-document"></i>
+        <span>首页</span>
+      </el-menu-item>
+      <el-submenu index="系统管理">
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span>系统管理</span>
+        </template>
+        <el-menu-item index="角色管理">
+          <i class="el-icon-document"></i>
+          <span>角色管理</span>
+        </el-menu-item>
+        <el-menu-item index="菜单管理">
+          <i class="el-icon-document"></i>
+          <span>菜单管理</span>
+        </el-menu-item>
+        <el-menu-item index="用户管理">
+          <i class="el-icon-document"></i>
+          <span>用户管理</span>
+        </el-menu-item>
+      </el-submenu>
+      <el-submenu index="测试管理">
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span>测试管理</span>
+        </template>
+        <el-menu-item index="管理1">
+          <i class="el-icon-document"></i>
+          <span>管理1</span>
+        </el-menu-item>
+        <el-menu-item index="管理2">
+          <i class="el-icon-document"></i>
+          <span>管理2</span>
+        </el-menu-item>
+        <el-menu-item index="管理3">
+          <i class="el-icon-document"></i>
+          <span>管理3</span>
+        </el-menu-item>
+      </el-submenu>
+    </el-menu>
+  </el-scrollbar>
+</template>
+
+<script>
+export default {
+  name: 'Aside'
+}
+</script>
+
+<style lang="scss">
+.el-scrollbar {
+  height: calc(100vh - 64px);
+}
+.el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+.el-scrollbar__view {
+  height: 100%;
+}
+.el-menu {
+  height: 100%;
+  text-align: left;
+  border: 0px;
+}
+.el-menu-item {
+  padding: 0;
+}
+.el-submenu__title:hover,
+.el-menu-item:hover {
+  background-color: rgb(9, 10, 14) !important;
+}
+</style>

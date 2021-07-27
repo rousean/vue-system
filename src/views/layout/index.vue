@@ -1,44 +1,79 @@
 <template>
-  <div>
-    <el-container>
-      <el-aside style="width:200px;">
-        <el-menu>
-          <el-menu-item index="1">
-            <i class="el-icon-document"></i>
-            <span slot="title">首页</span>
-          </el-menu-item>
-          <el-submenu index="2">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>系统管理</span>
-            </template>
-            <el-menu-item index="1">
-              <i class="el-icon-document"></i>
-              <span slot="title">角色管理</span>
-            </el-menu-item>
-            <el-menu-item index="1">
-              <i class="el-icon-document"></i>
-              <span slot="title">菜单管理</span>
-            </el-menu-item>
-            <el-menu-item index="1">
-              <i class="el-icon-document"></i>
-              <span slot="title">用户管理</span>
-            </el-menu-item>
-          </el-submenu>
-        </el-menu>
-      </el-aside>
-      <el-main style="width:100%;">
-        <div style="height:60px"></div>
-        <el-breadcrumb separator="/">
-          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        </el-breadcrumb>
-      </el-main>
-    </el-container>
-  </div>
+  <el-container>
+    <!-- Aside -->
+    <el-aside width="200px">
+      <div class="venus">
+        <div>
+          <img
+            src="../../assets/venus.png"
+            alt="vensu"
+            width="80px"
+            height="55px"
+          />
+        </div>
+        <div class="title">知行合一</div>
+      </div>
+      <Aside></Aside>
+    </el-aside>
+    <!-- Main -->
+    <el-main>
+      <Header></Header>
+      <el-divider></el-divider>
+      <History></History>
+
+      <Main></Main>
+      <Footer></Footer>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
-export default {}
+import Aside from './aside/aside.vue'
+import Main from './main/main.vue'
+import Header from './header/header.vue'
+import History from './history/history.vue'
+import Footer from './footer/footer.vue'
+export default {
+  name: 'Layout',
+  components: {
+    Aside,
+    Main,
+    Header,
+    History,
+    Footer
+  }
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.venus {
+  display: flex;
+  align-items: center;
+  background-color: rgb(25, 26, 35);
+  height: 64px;
+  img {
+    width: 40px;
+    height: 30px;
+    margin: 10px;
+  }
+  .title {
+    margin-left: 20px;
+    font-size: 24px;
+    color: #fff;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+  }
+}
+.el-container {
+  height: 100%;
+}
+.el-aside {
+  height: 100%;
+}
+.el-main {
+  padding: 0;
+}
+.el-divider--horizontal {
+  margin: 0;
+}
+</style>
