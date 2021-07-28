@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="footer-content">
     <span>Powered by Venus</span>
     <el-divider direction="vertical"></el-divider>
-    <span>启明星辰</span>
+    <span>Copyright 启明星辰</span>
   </div>
 </template>
 
@@ -12,4 +12,9 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.footer-content {
+  text-align: center;
+  margin-bottom: 5px;
+}
+</style>

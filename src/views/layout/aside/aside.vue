@@ -1,7 +1,15 @@
 <template>
   <el-scrollbar>
-    <el-menu background-color="rgb(25, 26, 35)" text-color="#fff" unique-opened>
-      <el-menu-item index="首页">
+    <el-menu
+      :default-active="this.$route.path"
+      background-color="rgb(25, 26, 35)"
+      text-color="#fff"
+      unique-opened
+      router
+      :collapse="isCollapse"
+      collapse-transition="true"
+    >
+      <el-menu-item index="dashboard">
         <i class="el-icon-document"></i>
         <span>首页</span>
       </el-menu-item>
@@ -10,15 +18,15 @@
           <i class="el-icon-location"></i>
           <span>系统管理</span>
         </template>
-        <el-menu-item index="角色管理">
+        <el-menu-item index="auth">
           <i class="el-icon-document"></i>
           <span>角色管理</span>
         </el-menu-item>
-        <el-menu-item index="菜单管理">
+        <el-menu-item index="menu">
           <i class="el-icon-document"></i>
           <span>菜单管理</span>
         </el-menu-item>
-        <el-menu-item index="用户管理">
+        <el-menu-item index="user">
           <i class="el-icon-document"></i>
           <span>用户管理</span>
         </el-menu-item>
@@ -47,7 +55,12 @@
 
 <script>
 export default {
-  name: 'Aside'
+  name: 'Aside',
+  data() {
+    return {
+      isCollapse: false
+    }
+  }
 }
 </script>
 

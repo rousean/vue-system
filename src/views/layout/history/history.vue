@@ -1,31 +1,32 @@
 <template>
-  <el-tabs
-    v-model="editableTabsValue"
-    type="card"
-    closable
-    @tab-remove="removeTab"
-  >
-    <el-tab-pane
-      v-for="item in editableTabs"
-      :key="item.name"
-      :label="item.title"
-      :name="item.name"
+  <div class="history">
+    <el-tabs
+      v-model="editableTabsValue"
+      type="card"
+      closable
+      @tab-remove="removeTab"
     >
-      <span
-        slot="label"
-        :style="{
-          color: editableTabsValue === item.name ? '#000' : '#333'
-        }"
-        ><i
-          class="dot"
-          :style="{
-            backgroundColor: editableTabsValue === item.name ? '#000' : '#ddd'
-          }"
-        />
-        {{ item.title }}</span
+      <el-tab-pane
+        v-for="item in editableTabs"
+        :key="item.name"
+        :label="item.title"
+        :name="item.name"
       >
-    </el-tab-pane>
-  </el-tabs>
+        <span slot="label"
+          ><i
+            class="dot"
+            :style="{
+              backgroundColor:
+                editableTabsValue === item.name
+                  ? 'rgb(24, 144, 255)'
+                  : 'rgb(221, 221, 221)'
+            }"
+          />
+          {{ item.title }}</span
+        >
+      </el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
 
 <script>
@@ -77,8 +78,20 @@ export default {
 </script>
 
 <style lang="scss">
-.rousean {
-  background-color: hotpink;
+.history {
+  background: #fff;
+  border-top: 1px solid #f4f4f4;
+  padding: 0;
+}
+.el-tabs__header {
+  margin: 0px;
+}
+.el-tabs__nav {
+  border: 0 !important;
+}
+.el-tabs__item {
+  border-left: 1px solid #f4f4f4 !important;
+  border-bottom: 0px solid #f4f4f4 !important;
 }
 .el-tabs__item .el-icon-close {
   color: initial !important;
@@ -92,7 +105,6 @@ export default {
   border-radius: 50%;
   transition: background-color 0.2s;
 }
-
 .contextmenu li {
   margin: 0;
   padding: 7px 16px;

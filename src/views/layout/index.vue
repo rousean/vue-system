@@ -1,6 +1,5 @@
 <template>
   <el-container>
-    <!-- Aside -->
     <el-aside width="200px">
       <div class="venus">
         <div>
@@ -15,13 +14,12 @@
       </div>
       <Aside></Aside>
     </el-aside>
-    <!-- Main -->
-    <el-main>
-      <Header></Header>
-      <el-divider></el-divider>
-      <History></History>
-
-      <Main></Main>
+    <el-main class="main-container">
+      <div class="header-fix">
+        <Header></Header>
+        <History></History>
+      </div>
+      <Main class="main"></Main>
       <Footer></Footer>
     </el-main>
   </el-container>
@@ -75,5 +73,26 @@ export default {
 }
 .el-divider--horizontal {
   margin: 0;
+}
+.header-fix {
+  position: fixed;
+  top: 0;
+  box-sizing: border-box;
+  z-index: 999;
+  width: 100%;
+}
+.main-container {
+  background-color: #f0f2f5;
+
+  .main {
+    min-height: calc(100vh - 200px);
+    background-color: #fff;
+    padding: 14px;
+    margin: 114px 14px 20px;
+    border-radius: 2px;
+  }
+}
+.main-container::-webkit-scrollbar {
+  display: none;
 }
 </style>

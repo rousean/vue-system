@@ -163,7 +163,8 @@ export default {
           const username = this.registerForm.username
           const password = this.registerForm.password
           const result = await reqRegister(username, password)
-          if (result.code == 200) {
+          console.log(result)
+          if (result.code == 1) {
             this.$confirm('您已注册成功,是否为您跳转登录页面？', '', {
               distinguishCancelAndClose: true,
               confirmButtonText: '是',
