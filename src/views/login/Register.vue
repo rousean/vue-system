@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h2>欢迎注册</h2>
+    <div class="form-header">
+      <img src="../../assets/venus.png" alt="logo" />
+      <span>Venus-Vue-Admin</span>
+    </div>
     <el-form
       ref="registerForm"
       class="register-form"
@@ -179,8 +182,8 @@ export default {
               })
               .catch(action => {
                 this.$notify.success({
-                  title: '成功',
-                  message: '用户注册成功'
+                  title: '失败',
+                  message: '用户注册失败！'
                 })
               })
             this.registerForm.username = ''
@@ -209,6 +212,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.form-header {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  img {
+    width: 60px;
+    height: 50px;
+    margin-right: 20px;
+  }
+  span {
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+      'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    font-size: 30px;
+    height: 50px;
+    line-height: 50px;
+  }
+}
 .register-form {
   width: 380px;
   max-width: 100%;

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h2>欢迎登录</h2>
+    <div class="form-header">
+      <img src="../../assets/venus.png" alt="logo" />
+      <span>Venus-Vue-Admin</span>
+    </div>
     <el-form
       ref="loginForm"
       class="login-form"
@@ -59,6 +62,7 @@
         type="primary"
         @click.native.prevent="userLogin"
         :disabled="disabled"
+        class="login-button"
         >立即登录</el-button
       >
     </el-form>
@@ -206,6 +210,23 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.form-header {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  img {
+    width: 60px;
+    height: 50px;
+    margin-right: 20px;
+  }
+  span {
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+      'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    font-size: 30px;
+    height: 50px;
+    line-height: 50px;
+  }
+}
 .login-form {
   width: 380px;
   max-width: 100%;

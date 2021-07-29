@@ -1,22 +1,15 @@
 <template>
   <el-container>
-    <el-aside width="200px">
+    <el-aside :width="collapse ? '60px' : '200px'">
       <div class="venus">
-        <div>
-          <img
-            src="../../assets/venus.png"
-            alt="vensu"
-            width="80px"
-            height="55px"
-          />
-        </div>
-        <div class="title">知行合一</div>
+        <img src="../../assets/venus.png" alt="logo" />
+        <h2 class="title" v-if="!collapse">知行合一</h2>
       </div>
-      <Aside></Aside>
+      <Aside :collapse="collapse"></Aside>
     </el-aside>
     <el-main class="main-container">
       <div class="header-fix">
-        <Header></Header>
+        <Header @emitCollapse="getCollapse"></Header>
         <History></History>
       </div>
       <Main class="main"></Main>
@@ -39,16 +32,29 @@ export default {
     Header,
     History,
     Footer
+  },
+  data() {
+    return {
+      collapse: false,
+      width: ''
+    }
+  },
+  methods: {
+    getCollapse(value) {
+      this.collapse = value
+    }
   }
 }
 </script>
 
 <style lang="scss">
 .venus {
-  display: flex;
   align-items: center;
   background-color: rgb(25, 26, 35);
   height: 64px;
+  min-height: 60px;
+  line-height: 60px;
+  display: flex;
   img {
     width: 40px;
     height: 30px;
@@ -60,10 +66,13 @@ export default {
     color: #fff;
     font-family: 'Times New Roman', Times, serif;
     font-weight: bold;
+    margin: 10px;
   }
 }
 .el-container {
   height: 100%;
+  position: relative;
+  width: 100%;
 }
 .el-aside {
   height: 100%;
@@ -83,7 +92,6 @@ export default {
 }
 .main-container {
   background-color: #f0f2f5;
-
   .main {
     min-height: calc(100vh - 200px);
     background-color: #fff;

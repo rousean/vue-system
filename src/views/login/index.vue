@@ -13,9 +13,16 @@
             class="overlay-slide"
             :class="isShow ? 'overlay-left' : 'overlay-right'"
           >
-            <div class="title">路漫漫其修远兮 吾将上下而求索</div>
-            <el-button type="success" @click.native.prevent="sign">{{
-              isShow ? '登录' : '注册'
+            <div class="login-title">
+              <img
+                src="../../assets/venus-logo.png"
+                alt="logo"
+                width="170px"
+                height="90px"
+              />
+            </div>
+            <el-button type="success" @click.native.prevent="sign" plain>{{
+              isShow ? '点我去登录' : '点我去注册'
             }}</el-button>
           </div>
         </div>
@@ -50,12 +57,9 @@ export default {
 }
 </script>
 <style lang="scss">
-$bg: #283443;
-$light_gray: #fff;
-$cursor: #fff;
-@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
+@supports (-webkit-mask: none) and (not (cater-color: #fff)) {
   .login-container .el-input input {
-    color: $cursor;
+    color: #fff;
   }
 }
 .login-container {
@@ -64,25 +68,58 @@ $cursor: #fff;
     height: 35px;
     width: 85%;
     input {
-      background: transparent;
-      border: 0px;
+      background-color: transparent;
+      border: 0;
       -webkit-appearance: none;
       border-radius: 10px;
       padding: 12px 5px 12px 15px;
-      color: $light_gray;
+      color: #000;
       height: 40px;
-      caret-color: $cursor;
+      caret-color: #fff;
       &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $bg inset !important;
-        -webkit-text-fill-color: $cursor !important;
+        -webkit-animation: autofill-fix 1s infinite !important;
+        -webkit-text-fill-color: #666;
+        -webkit-transition: background-color 50000s ease-in-out 0s !important;
+        transition: background-color 50000s ease-in-out 0s !important;
+        background-color: transparent !important;
+        background-image: none !important;
+        -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
       }
+      &::-webkit-input-placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+      &::-moz-input-placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+      &::-ms-input-placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+    }
+    [role='button'],
+    a,
+    area,
+    button,
+    input:not([type='range']),
+    label,
+    select,
+    summary,
+    textarea {
+      -ms-touch-action: manipulation;
+      touch-action: manipulation;
+    }
+    input[type='number'],
+    input[type='password'],
+    input[type='text'],
+    textarea {
+      -webkit-appearance: none;
     }
   }
   .el-form-item {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    color: #ffffff;
+    color: #fff;
+    margin-bottom: 30px;
   }
 }
 </style>
@@ -95,12 +132,14 @@ $cursor: #fff;
   align-items: center;
   background: url('../../assets/bg.png') no-repeat fixed center;
   background-size: cover;
+  text-align: center;
 }
 .container {
   position: relative;
   width: 50vw;
   height: 60vh;
-  background-color: #b5bec434;
+  min-height: 60vh;
+  background-color: #b5bec413;
   box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.3),
     0 0.5rem 0.5rem rgba(0, 0, 0, 0.2);
   border-radius: 1rem;
@@ -154,7 +193,7 @@ $cursor: #fff;
   left: -100%;
   width: 200%;
   height: 100%;
-  background: #b5bec47a;
+  background-color: #6cb9f81c;
   transition: transform 0.5s ease-in-out;
 }
 .container.switch .container-overlay {
@@ -186,11 +225,9 @@ $cursor: #fff;
 .container.switch .overlay-right {
   transform: translateX(20%);
 }
-.title {
+.login-title {
   position: absolute;
-  top: 50px;
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 30px;
-  font-weight: 1000;
+  top: 10px;
+  left: 10px;
 }
 </style>

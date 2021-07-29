@@ -1,13 +1,14 @@
 <template>
   <el-scrollbar>
     <el-menu
-      :default-active="this.$route.path"
+      :default-active="this.$route.name"
+      :collapse="collapse"
+      :collapse-transition="false"
       background-color="rgb(25, 26, 35)"
       text-color="#fff"
+      active-text-color="#409EFF"
       unique-opened
       router
-      :collapse="isCollapse"
-      collapse-transition="true"
     >
       <el-menu-item index="dashboard">
         <i class="el-icon-document"></i>
@@ -56,10 +57,11 @@
 <script>
 export default {
   name: 'Aside',
+  props: {
+    collapse: Boolean
+  },
   data() {
-    return {
-      isCollapse: false
-    }
+    return {}
   }
 }
 </script>

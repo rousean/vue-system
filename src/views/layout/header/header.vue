@@ -3,7 +3,7 @@
     <el-row>
       <el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">
         <span @click="changeFold">
-          <svg-icon :iconClass="fold ? 'fold' : 'unfold'"></svg-icon>
+          <svg-icon :iconClass="fold ? 'unfold' : 'fold'"></svg-icon>
         </span>
       </el-col>
       <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">中间</el-col>
@@ -17,12 +17,14 @@ export default {
   name: 'Header',
   data() {
     return {
-      fold: true
+      fold: false
     }
   },
   methods: {
     changeFold() {
       this.fold = !this.fold
+      this.$emit('emitCollapse', this.fold)
+      this.$parent.$parent.$parent.trendWidth()
     }
   }
 }

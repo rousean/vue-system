@@ -38,7 +38,7 @@ export function responseHandle(response) {
   if (response.data.code === 1) {
     Notification({
       title: '成功',
-      message: '欢迎您登录!',
+      message: response.data.message,
       type: 'success'
     })
     return Promise.resolve(response)

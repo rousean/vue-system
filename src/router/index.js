@@ -10,33 +10,33 @@ const routes = [
   },
   {
     path: '/login',
-    name: 'Login',
+    name: 'login',
     component: () => import('../views/login/index.vue')
   },
   {
     path: '/layout',
-    name: 'Layout',
+    name: 'layout',
     component: () => import('../views/layout/index.vue'),
     children: [
       {
         path: '/dashboard',
         component: () => import('../views/dashboard/index.vue'),
-        name: 'Dashboard'
+        name: 'dashboard'
       },
       {
         path: '/auth',
         component: () => import('../views/system/auth/auth.vue'),
-        name: 'Auth'
+        name: 'auth'
       },
       {
         path: '/menu',
         component: () => import('../views/system/menu/menu.vue'),
-        name: 'Muth'
+        name: 'muth'
       },
       {
         path: '/user',
         component: () => import('../views/system/user/user.vue'),
-        name: 'User'
+        name: 'user'
       }
     ]
   }
