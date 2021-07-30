@@ -1,1 +1,5 @@
-export default {}
+export default {
+  getToken(state) {
+    return state.token
+  }
+}

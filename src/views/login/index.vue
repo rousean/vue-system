@@ -75,7 +75,7 @@ export default {
       padding: 12px 5px 12px 15px;
       color: #000;
       height: 40px;
-      caret-color: #fff;
+      caret-color: rgb(0, 0, 0);
       &:-webkit-autofill {
         -webkit-animation: autofill-fix 1s infinite !important;
         -webkit-text-fill-color: #666;
