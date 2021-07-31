@@ -77,13 +77,13 @@ export default {
       height: 40px;
       caret-color: rgb(0, 0, 0);
       &:-webkit-autofill {
-        -webkit-animation: autofill-fix 1s infinite !important;
+        animation: autofill-fix 1s infinite !important;
         -webkit-text-fill-color: #666;
         -webkit-transition: background-color 50000s ease-in-out 0s !important;
         transition: background-color 50000s ease-in-out 0s !important;
         background-color: transparent !important;
         background-image: none !important;
-        -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+        box-shadow: 0 0 0 1000px transparent inset !important;
       }
       &::-webkit-input-placeholder {
         color: rgba(255, 255, 255, 0.7);

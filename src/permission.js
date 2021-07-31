@@ -1,13 +1,15 @@
 import router from './router'
 
-import store from './store'
+import store from '@/store'
+
+import { getTitle } from './util/get-title'
 
 let asyncRouterFlag = 0
 
 const whiteList = ['login']
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title + '-Venus-Vue-Admin'
+  document.title = getTitle(to.meta.title)
   const token = store.getters.getToken
   console.log(to.name)
   console.log(token)

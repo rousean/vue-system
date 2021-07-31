@@ -12,8 +12,8 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('../views/login/index.vue'),
-    meta: { title: '登录' }
+    component: () => import('../views/login/index.vue')
+    // meta: { title: '登录' }
   },
   {
     path: '/layout',
@@ -50,7 +50,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  // mode: 'history',
+  mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
