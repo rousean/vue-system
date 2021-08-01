@@ -1,9 +1,14 @@
 <template>
-  <div>系统管理</div>
+  <div>
+    <keep-alive>
+      <router-view v-if="$route.meta.keepAlive" />
+    </keep-alive>
+    <router-view v-if="!$route.meta.keepAlive" />
+  </div>
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'System'
+}
 </script>
-
-<style lang="scss" scoped></style>
