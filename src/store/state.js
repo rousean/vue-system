@@ -1,3 +1,5 @@
 export default {
-  token: ''
+  token: '',
+  asyncRouter: [],
+  routerList: []
 }

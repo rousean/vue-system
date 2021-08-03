@@ -7,13 +7,11 @@ const routes = [
   {
     path: '/',
     redirect: '/login'
-    // meta: { title: '首页' }
   },
   {
     path: '/login',
     name: 'login',
     component: () => import('../views/login/index.vue')
-    // meta: { title: '登录' }
   },
   {
     path: '/layout',
@@ -50,8 +48,8 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
+  // mode: 'history',
+  // base: process.env.BASE_URL,
   routes
 })
 

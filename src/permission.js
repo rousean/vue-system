@@ -1,6 +1,6 @@
 import router from './router'
 
-import store from '@/store'
+import store from './store'
 
 import { getTitle } from './util/get-title'
 
@@ -27,6 +27,8 @@ router.beforeEach((to, from, next) => {
     // 不在白名单中
     if (token) {
       // 有token
+
+      store.dispatch('postRouter')
       next()
     } else {
       // 不在白名单中并且未登陆的时候
