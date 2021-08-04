@@ -13,6 +13,7 @@ router.beforeEach((to, from, next) => {
   const token = store.getters.getToken
   console.log(to.name)
   console.log(token)
+  store.dispatch('postRouter')
 
   if (whiteList.indexOf(to.name) > -1) {
     // 如果在白名单中
@@ -28,7 +29,6 @@ router.beforeEach((to, from, next) => {
     if (token) {
       // 有token
 
-      store.dispatch('postRouter')
       next()
     } else {
       // 不在白名单中并且未登陆的时候
