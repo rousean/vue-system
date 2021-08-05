@@ -14,7 +14,7 @@
         <i class="el-icon-document"></i>
         <span>首页</span>
       </el-menu-item>
-      <el-submenu index="系统管理">
+      <el-submenu index="system">
         <template slot="title">
           <i class="el-icon-location"></i>
           <span>系统管理</span>

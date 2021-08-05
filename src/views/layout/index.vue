@@ -12,7 +12,7 @@
         <Header @emitCollapse="getCollapse"></Header>
         <History></History>
       </div>
-      <Main class="main"></Main>
+      <Main class="main-main"></Main>
       <Footer></Footer>
     </el-main>
   </el-container>
@@ -92,7 +92,7 @@ export default {
 }
 .main-container {
   background-color: #f0f2f5;
-  .main {
+  .main-main {
     min-height: calc(100vh - 200px);
     background-color: #fff;
     padding: 14px;

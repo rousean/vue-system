@@ -1,20 +1,14 @@
 import router from './router'
-
 import store from './store'
-
 import { getTitle } from './util/get-title'
+import { getLocalStorage } from './util/storage'
 
 let asyncRouterFlag = 0
-
 const whiteList = ['login']
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   document.title = getTitle(to.meta.title)
-  const token = store.getters.getToken
-  console.log(to.name)
-  console.log(token)
-  store.dispatch('postRouter')
-
+  const token = getLocalStorage('token')
   if (whiteList.indexOf(to.name) > -1) {
     // 如果在白名单中
     if (token) {
@@ -27,16 +21,30 @@ router.beforeEach((to, from, next) => {
   } else {
     // 不在白名单中
     if (token) {
-      // 有token
+      if (!asyncRouterFlag && store.getters.getAsyncRouter.length === 0) {
+        await store.dispatch('postRouter')
+        const asyncRouter = store.getters.getAsyncRouter
+        console.log(asyncRouter)
+        console.log(router)
+        asyncRouter.forEach(item => {
+          router.addRoute('layout', item)
+        })
+        console.log(router.getRoutes())
 
-      next()
+        next({ ...to, replace: true })
+      } else {
+        if (to.matched.length) {
+          next()
+        } else {
+          console.log('404')
+          next({ path: '/layout/404' })
+        }
+      }
     } else {
       // 不在白名单中并且未登陆的时候
       // next(`/login?redirect=${to.path}`)
-      console.log(to.fullPath)
       next({
         path: '/login',
-        // 保存我们所在的位置，以便以后再来
         query: { redirect: to.fullPath }
       })
     }
