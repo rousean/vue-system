@@ -3,7 +3,7 @@
     <el-aside :width="collapse ? '60px' : '200px'">
       <div class="venus">
         <img src="../../assets/venus.png" alt="logo" />
-        <h2 class="title" v-if="!collapse">知行合一</h2>
+        <h2 class="title" v-if="!collapse">我爱工作</h2>
       </div>
       <Aside :collapse="collapse"></Aside>
     </el-aside>

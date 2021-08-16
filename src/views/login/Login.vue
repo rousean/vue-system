@@ -2,7 +2,7 @@
   <div>
     <div class="form-header">
       <img src="../../assets/venus.png" alt="logo" />
-      <span>Venus-Vue-Admin</span>
+      <span>Rousean-Vue-Admin</span>
     </div>
     <el-form
       ref="loginForm"

@@ -1,6 +1,6 @@
 export function getTitle(title) {
   if (title) {
-    return `${title} - Venus-Vue-Admin`
+    return `${title} - Rousean-Vue-Admin`
   }
-  return 'Venus-Vue-Admin'
+  return 'Rousean-Vue-Admin'
 }

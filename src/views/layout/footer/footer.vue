@@ -1,8 +1,8 @@
 <template>
   <div class="footer-content">
-    <span>Powered by Venus</span>
+    <span>Powered by Rousean</span>
     <el-divider direction="vertical"></el-divider>
-    <span>Copyright 启明星辰</span>
+    <span>Copyright ROUSEAN</span>
   </div>
 </template>
 
