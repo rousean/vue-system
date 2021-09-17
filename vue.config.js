@@ -20,7 +20,7 @@ module.exports = {
     }
   },
   configureWebpack: {
-    name: 'Venus-Vue-Admin',
+    name: 'Rousean-Vue-Admin',
     resolve: {
       alias: {
         '@': resolve('src')
