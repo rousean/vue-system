@@ -12,8 +12,8 @@
         :label="item.title"
         :name="item.name"
       >
-        <span slot="label"
-          ><i
+        <span slot="label">
+          <i
             class="dot"
             :style="{
               backgroundColor:
@@ -22,8 +22,8 @@
                   : 'rgb(221, 221, 221)'
             }"
           />
-          {{ item.title }}</span
-        >
+          {{ item.title }}
+        </span>
       </el-tab-pane>
     </el-tabs>
   </div>

@@ -24,13 +24,9 @@ router.beforeEach(async (to, from, next) => {
       if (!asyncRouterFlag && store.getters.getAsyncRouter.length === 0) {
         await store.dispatch('postRouter')
         const asyncRouter = store.getters.getAsyncRouter
-        console.log(asyncRouter)
-        console.log(router)
         asyncRouter.forEach(item => {
           router.addRoute('layout', item)
         })
-        console.log(router.getRoutes())
-
         next({ ...to, replace: true })
       } else {
         if (to.matched.length) {

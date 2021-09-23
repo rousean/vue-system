@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="form-header">
-      <img src="../../assets/venus.png" alt="logo" />
       <span>Rousean-Vue-Admin</span>
     </div>
     <el-form
@@ -59,8 +58,9 @@
         type="primary"
         :disabled="disabled"
         @click.native.prevent="userRegister"
-        >注册</el-button
       >
+        注册
+      </el-button>
       <el-button @click.native.prevent="reset">重置</el-button>
     </el-form>
   </div>

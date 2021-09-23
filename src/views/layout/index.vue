@@ -1,9 +1,14 @@
 <template>
   <el-container>
     <el-aside :width="collapse ? '60px' : '200px'">
-      <div class="venus">
-        <img src="../../assets/venus.png" alt="logo" />
-        <h2 class="title" v-if="!collapse">我爱工作</h2>
+      <div class="system-container">
+        <div class="svg-system">
+          <svg-icon
+            iconClass="svg-system"
+            style="width: 24px; height: 24px;"
+          ></svg-icon>
+        </div>
+        <div class="system-title" v-if="!collapse">后台管理</div>
       </div>
       <Aside :collapse="collapse"></Aside>
     </el-aside>
@@ -19,11 +24,11 @@
 </template>
 
 <script>
-import Aside from './aside/aside.vue'
-import Main from './main/main.vue'
-import Header from './header/header.vue'
-import History from './history/history.vue'
-import Footer from './footer/footer.vue'
+import Aside from './Aside/index.vue'
+import Main from './Main/index.vue'
+import Header from './Header/index.vue'
+import History from './History/index.vue'
+import Footer from './Footer/index.vue'
 export default {
   name: 'Layout',
   components: {
@@ -47,40 +52,36 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.venus {
-  align-items: center;
+<style lang="scss" scoped>
+.system-container {
   background-color: rgb(25, 26, 35);
-  height: 64px;
   min-height: 60px;
-  line-height: 60px;
+  height: 64px;
   display: flex;
-  img {
-    width: 40px;
-    height: 30px;
-    margin: 10px;
-  }
-  .title {
-    margin-left: 20px;
-    font-size: 24px;
-    color: #fff;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: bold;
-    margin: 10px;
-  }
+  align-items: center;
 }
-.el-container {
+.svg-system {
+  width: 76px;
+  text-align: center;
+}
+.system-title {
+  font-size: 24px;
+  color: #fff;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  margin: 10px;
+}
+::v-deep .el-container {
   height: 100%;
   position: relative;
-  width: 100%;
 }
-.el-aside {
+::v-deep .el-aside {
   height: 100%;
 }
-.el-main {
+::v-deep .el-main {
   padding: 0;
 }
-.el-divider--horizontal {
+::v-deep .el-divider--horizontal {
   margin: 0;
 }
 .header-fix {

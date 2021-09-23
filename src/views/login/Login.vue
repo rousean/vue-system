@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="form-header">
-      <img src="../../assets/venus.png" alt="logo" />
       <span>Rousean-Vue-Admin</span>
     </div>
     <el-form
@@ -63,8 +62,9 @@
         @click.native.prevent="userLogin"
         :disabled="disabled"
         class="login-button"
-        >立即登录</el-button
       >
+        立即登录
+      </el-button>
     </el-form>
   </div>
 </template>
@@ -220,8 +220,7 @@ export default {
     margin-right: 20px;
   }
   span {
-    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
-      'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     font-size: 30px;
     height: 50px;
     line-height: 50px;

@@ -7,5 +7,6 @@
   "[javascript]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "htmlWhitespaceSensitivity": "ignore"
 }

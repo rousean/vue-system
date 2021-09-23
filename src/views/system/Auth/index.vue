@@ -1,9 +1,11 @@
 <template>
-  <div>404</div>
+  <div>角色管理</div>
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'Auth'
+}
 </script>
 
 <style lang="scss" scoped></style>

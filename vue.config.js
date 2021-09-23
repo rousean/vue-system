@@ -19,6 +19,12 @@ module.exports = {
       msTileImage: 'favicon.ico'
     }
   },
+  devServer: {
+    port: 7777,
+    host: '0.0.0.0',
+    https: false,
+    open: true
+  },
   configureWebpack: {
     name: 'Rousean-Vue-Admin',
     resolve: {

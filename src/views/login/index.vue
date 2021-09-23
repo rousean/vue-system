@@ -13,17 +13,9 @@
             class="overlay-slide"
             :class="isShow ? 'overlay-left' : 'overlay-right'"
           >
-            <div class="login-title">
-              <img
-                src="../../assets/venus-logo.png"
-                alt="logo"
-                width="170px"
-                height="90px"
-              />
-            </div>
-            <el-button type="success" @click.native.prevent="sign" plain>{{
-              isShow ? '点我去登录' : '点我去注册'
-            }}</el-button>
+            <el-button type="success" @click.native.prevent="sign" plain>
+              {{ isShow ? '点我去登录' : '点我去注册' }}
+            </el-button>
           </div>
         </div>
       </div>
@@ -224,10 +216,5 @@ export default {
 }
 .container.switch .overlay-right {
   transform: translateX(20%);
-}
-.login-title {
-  position: absolute;
-  top: 10px;
-  left: 10px;
 }
 </style>
