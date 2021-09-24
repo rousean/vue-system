@@ -1,5 +1,6 @@
 import router from './router'
 import store from './store'
+
 import { getTitle } from './util/get-title'
 import { getLocalStorage } from './util/storage'
 
@@ -32,7 +33,6 @@ router.beforeEach(async (to, from, next) => {
         if (to.matched.length) {
           next()
         } else {
-          console.log('404')
           next({ path: '/layout/404' })
         }
       }

@@ -32,24 +32,6 @@
           <span>用户管理</span>
         </el-menu-item>
       </el-submenu>
-      <el-submenu index="测试管理">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>测试管理</span>
-        </template>
-        <el-menu-item index="管理1">
-          <i class="el-icon-document"></i>
-          <span>管理1</span>
-        </el-menu-item>
-        <el-menu-item index="管理2">
-          <i class="el-icon-document"></i>
-          <span>管理2</span>
-        </el-menu-item>
-        <el-menu-item index="管理3">
-          <i class="el-icon-document"></i>
-          <span>管理3</span>
-        </el-menu-item>
-      </el-submenu>
     </el-menu>
   </el-scrollbar>
 </template>

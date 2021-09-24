@@ -34,21 +34,15 @@ module.exports = {
     }
   },
   chainWebpack: config => {
-    config.plugin('preload').tap(() => [
+    // 文件别名
+    config.resolve.alias.set('@', resolve('src'))
+    config.plugin('define').tap(args => [
       {
-        rel: 'preload',
-        fileBlacklist: [/\.map$/, /hot-update\.js$/, /runtime\..*\.js$/],
-        include: 'initial'
+        ...args,
+        'window.isDefine': JSON.stringify(true)
       }
     ])
-    config.plugins.delete('prefetch')
-    config.plugin('define').tap(args => {
-      const argv = process.argv
-      const icourt = argv[argv.indexOf('--icourt-mode') + 1]
-      args[0]['process.env'].MODE = `"${icourt}"`
-      return args
-    })
-    // svg rule loader
+    // svg处理
     const svgRule = config.module.rule('svg') // 找到svg-loader
     svgRule.uses.clear() // 清除已有的loader, 如果不这样做会添加在此loader之后
     svgRule.exclude.add(/node_modules/) // 正则匹配排除node_modules目录
@@ -59,46 +53,50 @@ module.exports = {
       .options({
         symbolId: 'icon-[name]'
       })
-
     // 修改images loader 添加svg处理
     const imagesRule = config.module.rule('images')
     imagesRule.exclude.add(resolve('src/icons'))
     config.module.rule('images').test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
-    config.when(process.env.NODE_ENV !== 'development', config => {
-      config
-        .plugin('ScriptExtHtmlWebpackPlugin')
-        .after('html')
-        .use('script-ext-html-webpack-plugin', [
-          {
-            // `runtime` must same as runtimeChunk name. default is `runtime`
-            inline: /runtime\..*\.js$/
-          }
-        ])
-        .end()
+
+    // 生产环境配置
+    if (process.env.NODE_ENV === 'production') {
+      config.output.filename('./js/[name].[chunkhash:8].js')
+      config.output.chunkFilename('./js/[name].[chunkhash:8].js')
+      config.plugin('extract-css').tap(args => [
+        {
+          filename: 'css/[name].[contenthash:8].css',
+          chunkFilename: 'css/[name].[contenthash:8].css'
+        }
+      ])
+      config.plugin('hotHash').use(HotHashWebpackPlugin, [{ version: '1.0.0' }])
+      config.plugin('webpackBar').use(WebpackBar)
+
+      config.optimization
+        .minimize(true)
+        .minimizer('terser')
+        .tap(args => {
+          let { terserOptions } = args[0]
+          terserOptions.compress.drop_console = true
+          terserOptions.compress.drop_debugger = true
+          return args
+        })
       config.optimization.splitChunks({
-        chunks: 'all',
         cacheGroups: {
-          libs: {
+          common: {
+            name: 'common',
+            chunks: 'all',
+            minSize: 1,
+            minChunks: 2,
+            priority: 1
+          },
+          vendor: {
             name: 'chunk-libs',
+            chunks: 'all',
             test: /[\\/]node_modules[\\/]/,
-            priority: 10,
-            chunks: 'initial' // only package third parties that are initially dependent
-          },
-          elementUI: {
-            name: 'chunk-elementUI', // split elementUI into a single package
-            priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
-            test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
-          },
-          commons: {
-            name: 'chunk-commons',
-            test: resolve('src/components'), // can customize your rules
-            minChunks: 3, // minimum common number
-            priority: 5,
-            reuseExistingChunk: true
+            priority: 10
           }
         }
       })
-      config.optimization.runtimeChunk('single')
-    })
+    }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="router-view">
+  <div class="view-container">
     <transition name="fade-transform" mode="out-in">
       <keep-alive>
         <router-view></router-view>
@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.router-view {
+.view-container {
   background-color: #fff;
   margin: 10px;
 }

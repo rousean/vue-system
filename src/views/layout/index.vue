@@ -2,13 +2,13 @@
   <el-container>
     <el-aside :width="collapse ? '60px' : '200px'">
       <div class="system-container">
-        <div class="svg-system">
+        <div class="system-icon">
           <svg-icon
-            iconClass="svg-system"
+            iconClass="system-icon"
             style="width: 24px; height: 24px;"
           ></svg-icon>
         </div>
-        <div class="system-title" v-if="!collapse">后台管理</div>
+        <div class="system-title" v-if="!collapse">Vue-Admin</div>
       </div>
       <Aside :collapse="collapse"></Aside>
     </el-aside>
@@ -60,29 +60,15 @@ export default {
   display: flex;
   align-items: center;
 }
-.svg-system {
+.system-icon {
   width: 76px;
   text-align: center;
 }
 .system-title {
-  font-size: 24px;
+  font-size: 22px;
   color: #fff;
   font-family: 'Times New Roman', Times, serif;
   font-weight: bold;
-  margin: 10px;
-}
-::v-deep .el-container {
-  height: 100%;
-  position: relative;
-}
-::v-deep .el-aside {
-  height: 100%;
-}
-::v-deep .el-main {
-  padding: 0;
-}
-::v-deep .el-divider--horizontal {
-  margin: 0;
 }
 .header-fix {
   position: fixed;
@@ -103,5 +89,18 @@ export default {
 }
 .main-container::-webkit-scrollbar {
   display: none;
+}
+::v-deep .el-container {
+  height: 100%;
+  position: relative;
+}
+::v-deep .el-aside {
+  height: 100%;
+}
+::v-deep .el-main {
+  padding: 0;
+}
+::v-deep .el-divider--horizontal {
+  margin: 0;
 }
 </style>

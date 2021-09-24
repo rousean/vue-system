@@ -1,5 +1,5 @@
 <template>
-  <div class="history">
+  <div class="history-container">
     <el-tabs
       v-model="editableTabsValue"
       type="card"
@@ -69,7 +69,6 @@ export default {
           }
         })
       }
-
       this.editableTabsValue = activeName
       this.editableTabs = tabs.filter(tab => tab.name !== targetName)
     }
@@ -77,26 +76,26 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.history {
+<style lang="scss" scoped>
+.history-container {
   background: #fff;
   border-top: 1px solid #f4f4f4;
   padding: 0;
 }
-.el-tabs__header {
+::v-deep .el-tabs__header {
   margin: 0px;
 }
-.el-tabs__nav {
+::v-deep .el-tabs__nav {
   border: 0 !important;
 }
-.el-tabs__item {
+::v-deep .el-tabs__item {
   border-left: 1px solid #f4f4f4 !important;
   border-bottom: 0px solid #f4f4f4 !important;
 }
-.el-tabs__item .el-icon-close {
+::v-deep .el-tabs__item .el-icon-close {
   color: initial !important;
 }
-.el-tabs__item .dot {
+::v-deep .el-tabs__item .dot {
   content: '';
   width: 9px;
   height: 9px;
@@ -104,13 +103,5 @@ export default {
   display: inline-block;
   border-radius: 50%;
   transition: background-color 0.2s;
-}
-.contextmenu li {
-  margin: 0;
-  padding: 7px 16px;
-}
-.contextmenu li:hover {
-  background: #f2f2f2;
-  cursor: pointer;
 }
 </style>
