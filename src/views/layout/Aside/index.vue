@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar>
+  <div>
     <el-menu
       :default-active="this.$route.name"
       :collapse="collapse"
@@ -11,29 +11,50 @@
       router
     >
       <el-menu-item index="dashboard">
-        <i class="el-icon-document"></i>
-        <span>首页</span>
+        <svg-icon
+          iconClass="system-dashboard"
+          style="width: 20px; height: 20px; margin-right: 5px;"
+        ></svg-icon>
+        <span slot="title">
+          首页
+        </span>
       </el-menu-item>
       <el-submenu index="system">
         <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>系统管理</span>
+          <svg-icon
+            iconClass="system-manage"
+            style="width: 20px; height: 20px; margin-right: 5px;"
+          ></svg-icon>
+          <span>
+            系统管理
+          </span>
         </template>
         <el-menu-item index="auth">
-          <i class="el-icon-document"></i>
-          <span>角色管理</span>
+          <svg-icon
+            iconClass="system-auth"
+            style="width: 18px; height: 18px; margin-right: 5px;"
+          ></svg-icon>
+          <span slot="title">
+            角色管理
+          </span>
         </el-menu-item>
         <el-menu-item index="menu">
-          <i class="el-icon-document"></i>
-          <span>菜单管理</span>
+          <svg-icon
+            iconClass="system-menu"
+            style="width: 18px; height: 18px; margin-right: 8px;"
+          ></svg-icon>
+          <span slot="title">菜单管理</span>
         </el-menu-item>
         <el-menu-item index="user">
-          <i class="el-icon-document"></i>
-          <span>用户管理</span>
+          <svg-icon
+            iconClass="system-user"
+            style="width: 18px; height: 18px; margin-right: 5px;"
+          ></svg-icon>
+          <span slot="title">用户管理</span>
         </el-menu-item>
       </el-submenu>
     </el-menu>
-  </el-scrollbar>
+  </div>
 </template>
 
 <script>
@@ -48,25 +69,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.el-scrollbar {
-  height: calc(100vh - 64px);
-}
-.el-scrollbar__wrap {
-  overflow-x: hidden;
-}
-.el-scrollbar__view {
-  height: 100%;
-}
-.el-menu {
-  height: 100%;
-  text-align: left;
+<style lang="scss" scoped>
+::v-deep .el-menu {
   border: 0px;
 }
-.el-menu-item {
-  padding: 0;
-}
-.el-submenu__title:hover,
+::v-deep .el-submenu__title:hover,
 .el-menu-item:hover {
   background-color: rgb(9, 10, 14) !important;
 }

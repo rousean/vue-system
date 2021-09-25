@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header-container">
     <el-row>
       <el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">
         <span @click="changeFold">
@@ -26,18 +26,18 @@ export default {
     changeFold() {
       this.fold = !this.fold
       this.$emit('emitCollapse', this.fold)
-      this.$parent.$parent.$parent.trendWidth()
+      // this.$parent.$parent.$parent.trendWidth()
     }
   }
 }
 </script>
 
-<style lang="scss">
-.header {
-  height: 60px;
-  background-color: #fff;
+<style lang="scss" scoped>
+.header-container {
   width: 100%;
+  height: 50px;
+  background-color: #fff;
   text-align: center;
-  line-height: 60px;
+  line-height: 50px;
 }
 </style>

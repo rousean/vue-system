@@ -3,20 +3,38 @@
     <div class="global-operate">
       <div class="global-operate-content">
         <el-button type="primary" plain>
-          <svg-icon iconClass="table-add"></svg-icon>
+          <svg-icon
+            iconClass="table-add"
+            style="vertical-align: bottom;"
+          ></svg-icon>
           新增
         </el-button>
       </div>
       <div class="global-operate-content">
         <el-button type="primary" plain>
-          <svg-icon iconClass="table-import"></svg-icon>
+          <svg-icon
+            iconClass="table-import"
+            style="vertical-align: bottom;"
+          ></svg-icon>
           导入
         </el-button>
       </div>
       <div class="global-operate-content">
         <el-button type="primary" plain>
-          <svg-icon iconClass="table-export"></svg-icon>
+          <svg-icon
+            iconClass="table-export"
+            style="vertical-align: bottom;"
+          ></svg-icon>
           导出
+        </el-button>
+      </div>
+      <div class="global-operate-content">
+        <el-button type="primary" plain>
+          <svg-icon
+            iconClass="table-batch-delete"
+            style="vertical-align: bottom;"
+          ></svg-icon>
+          批量删除
         </el-button>
       </div>
       <div>
@@ -25,121 +43,90 @@
         </el-input>
       </div>
     </div>
-    <div>
+    <div class="table-container">
       <el-table
         :data="tableData"
+        stripe
         style="width: 100%;margin-bottom: 20px;"
-        row-key="id"
-        border
+        row-key="_id"
         default-expand-all
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
+        <el-table-column prop="_id" label="ID" sortable></el-table-column>
         <el-table-column
-          prop="date"
-          label="日期"
+          prop="title"
+          label="展示名称"
           sortable
-          width="180"
         ></el-table-column>
-        <el-table-column
-          prop="name"
-          label="姓名"
-          sortable
-          width="180"
-        ></el-table-column>
-        <el-table-column
-          prop="address"
-          label="地址"
-          width="300"
-        ></el-table-column>
+        <el-table-column prop="name" label="路由名称"></el-table-column>
+        <el-table-column prop="path" label="路由路径"></el-table-column>
+        <el-table-column prop="component" label="文件路径"></el-table-column>
         <el-table-column label="操作" width="200">
           <div class="partial-operate">
             <el-tooltip content="新增子集" placement="bottom" effect="light">
-              <div class="partial-operate-content">
-                <svg-icon
-                  iconClass="table-add-children"
-                  style="width: 24px; height: 24px"
-                ></svg-icon>
-              </div>
+              <svg-icon
+                iconClass="table-add-children"
+                className="partial-operate-content"
+              ></svg-icon>
             </el-tooltip>
             <el-tooltip content="查看" placement="bottom" effect="light">
-              <div class="partial-operate-content">
-                <svg-icon
-                  iconClass="table-look"
-                  style="width: 24px; height: 24px"
-                ></svg-icon>
-              </div>
+              <svg-icon
+                iconClass="table-look"
+                className="partial-operate-content"
+              ></svg-icon>
             </el-tooltip>
             <el-tooltip content="编辑" placement="bottom" effect="light">
-              <div class="partial-operate-content">
-                <svg-icon
-                  iconClass="table-edit"
-                  style="width: 24px; height: 24px"
-                ></svg-icon>
-              </div>
+              <svg-icon
+                iconClass="table-edit"
+                className="partial-operate-content"
+              ></svg-icon>
             </el-tooltip>
             <el-tooltip content="删除" placement="bottom" effect="light">
-              <div class="partial-operate-content">
-                <svg-icon
-                  iconClass="table-delete"
-                  style="width: 24px; height: 24px"
-                ></svg-icon>
-              </div>
+              <svg-icon
+                iconClass="table-delete"
+                className="partial-operate-content"
+              ></svg-icon>
             </el-tooltip>
           </div>
         </el-table-column>
       </el-table>
     </div>
+    <div class="pagination-container">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[100, 200, 300, 400]"
+        :page-size="100"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="400"
+      ></el-pagination>
+    </div>
   </div>
 </template>
 <script>
+import { reqQueryMenu } from '../../../api/index'
 export default {
   name: 'Menu',
   data() {
     return {
       searchValue: '',
-      tableData: [
-        {
-          id: 1,
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          id: 2,
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        },
-        {
-          id: 3,
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄',
-          children: [
-            {
-              id: 31,
-              date: '2016-05-01',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1519 弄'
-            },
-            {
-              id: 32,
-              date: '2016-05-01',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1519 弄'
-            }
-          ]
-        },
-        {
-          id: 4,
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }
-      ]
+      currentPage: 1,
+      tableData: []
     }
   },
-  methods: {}
+  async mounted() {
+    const result = await reqQueryMenu()
+    this.tableData = result.data
+  },
+  methods: {
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`)
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`)
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -154,11 +141,13 @@ export default {
   display: flex;
 }
 .partial-operate-content {
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 24px;
+  height: 24px;
+  vertical-align: text-top;
+  margin-right: 15px;
+}
+.pagination-container {
+  text-align: right;
 }
 ::v-deep .el-button {
   padding: 12px 14px;

@@ -1,5 +1,5 @@
 <template>
-  <div class="footer-content">
+  <div class="footer-container">
     <span>Powered by Rousean</span>
     <el-divider direction="vertical"></el-divider>
     <span>Copyright 路索</span>
@@ -12,8 +12,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.footer-content {
+<style lang="scss" scoped>
+.footer-container {
   text-align: center;
   margin-bottom: 5px;
 }
