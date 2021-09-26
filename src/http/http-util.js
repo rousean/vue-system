@@ -1,7 +1,5 @@
 import axios from 'axios'
-
 import { Notification } from 'element-ui'
-import { clearLocalStorage } from '../util/storage'
 
 // 存储请求
 const pendingMap = new Map()
@@ -36,11 +34,11 @@ export function addPending(config) {
 
 export function responseHandle(response) {
   if (response.data.code === 1) {
-    Notification({
-      title: '成功',
-      message: response.data.message,
-      type: 'success'
-    })
+    // Notification({
+    //   title: '成功',
+    //   message: response.data.message,
+    //   type: 'success'
+    // })
     return Promise.resolve(response)
   } else if (response.data.code === 0) {
     Notification({

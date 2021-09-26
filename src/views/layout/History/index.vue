@@ -13,15 +13,10 @@
         :name="item.name"
       >
         <span slot="label">
-          <i
-            class="dot"
-            :style="{
-              backgroundColor:
-                editableTabsValue === item.name
-                  ? 'rgb(24, 144, 255)'
-                  : 'rgb(221, 221, 221)'
-            }"
-          />
+          <svg-icon
+            :iconClass="item.icon"
+            style="vertical-align: middle; margin-left:5px;"
+          ></svg-icon>
           {{ item.title }}
         </span>
       </el-tab-pane>
@@ -30,30 +25,35 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'History',
   data() {
     return {
-      editableTabsValue: '1',
+      editableTabsValue: 'auth',
       editableTabs: [
         {
           title: '首页',
-          name: '1',
-          content: 'Tab 1 content'
+          name: 'dashboard',
+          icon: 'system-dashboard'
         },
         {
-          title: '系统管理',
-          name: '2',
-          content: 'Tab 2 content'
+          title: '角色管理',
+          name: 'auth',
+          icon: 'system-auth'
         },
         {
-          title: '测试管理',
-          name: '3',
-          content: 'Tab 2 content'
+          title: '菜单管理',
+          name: 'menu',
+          icon: 'system-menu'
         }
       ],
       tabIndex: 1
     }
+  },
+  mounted() {},
+  computed: {
+    ...mapState(['routerList', 'historyRouters'])
   },
   methods: {
     removeTab(targetName) {

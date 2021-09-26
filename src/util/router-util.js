@@ -4,7 +4,11 @@ export function formatRouter(arr) {
       (!item.children || item.children.every(ch => ch.hidden)) &&
       item.name !== '404'
     ) {
-      acc.push({ label: item.meta.title, value: item.name })
+      acc.push({
+        title: item.meta.title,
+        name: item.name,
+        icon: item.meta.icon
+      })
     }
     if (item.children && item.children.length > 0) {
       acc.push(...formatRouter(item.children))

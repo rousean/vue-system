@@ -22,11 +22,15 @@ router.beforeEach(async (to, from, next) => {
   } else {
     // 不在白名单中
     if (token) {
-      if (!asyncRouterFlag && store.getters.getAsyncRouter.length === 0) {
+      if (!asyncRouterFlag && store.getters.getAsyncRouters.length === 0) {
         await store.dispatch('postRouter')
-        const asyncRouter = store.getters.getAsyncRouter
-        asyncRouter.forEach(item => {
+        const asyncRouters = store.getters.getAsyncRouters
+        asyncRouters.forEach(item => {
           router.addRoute('layout', item)
+        })
+        router.addRoute({
+          path: '*',
+          redirect: '/404'
         })
         next({ ...to, replace: true })
       } else {

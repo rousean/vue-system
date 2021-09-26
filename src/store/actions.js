@@ -1,5 +1,10 @@
-import { SETTOKEN, SETASYNCROUTER, SETROUTERLIST } from './mutation-types'
-import { reqLogin, reqRouter } from '../api/index'
+import {
+  SETTOKEN,
+  SETASYNCROUTERS,
+  SETROUTERLIST,
+  SETHISTORYROUTERS
+} from './mutation-types'
+import { reqLogin, reqMenuList } from '../api/index'
 import { setLocalStorage } from '../util/storage'
 import { formatRouter, asyncRouterHandle } from '../util/router-util'
 
@@ -19,39 +24,17 @@ export default {
   },
   async postRouter({ commit }) {
     try {
-      const result = await reqRouter()
-      if (result.code === 1) {
-        // const baseRouter = [
-        //   {
-        //     path: '/layout',
-        //     name: '/layout',
-        //     components: '../view/layout/index.vue',
-        //     meta: { title: '底层layout' },
-        //     children: []
-        //   }
-        // ]
-        const asyncRouter = result.data
-        // asyncRouter.push({
-        //   path: '/404',
-        //   name: '404',
-        //   hidden: true,
-        //   meta: {
-        //     title: '迷路了*。*'
-        //   },
-        //   component: '../view/error/index.vue'
-        // })
-        const routerList = formatRouter(asyncRouter)
-        // baseRouter[0].children = asyncRouter
-        asyncRouter.push({
-          path: '*',
-          redirect: '/404'
-        })
-        asyncRouterHandle(asyncRouter)
-        commit(SETASYNCROUTER, asyncRouter)
-        commit(SETROUTERLIST, routerList)
-      }
+      const result = await reqMenuList()
+      const asyncRouters = result.data
+      const routerList = formatRouter(asyncRouters)
+      asyncRouterHandle(asyncRouters)
+      commit(SETASYNCROUTERS, asyncRouters)
+      commit(SETROUTERLIST, routerList)
     } catch (error) {
       return Promise.reject(error)
     }
+  },
+  setHistoryRouters({ commit }, route) {
+    commit(SETHISTORYROUTERS, route)
   }
 }

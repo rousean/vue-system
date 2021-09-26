@@ -1,13 +1,21 @@
-import { SETTOKEN, SETASYNCROUTER, SETROUTERLIST } from './mutation-types'
+import {
+  SETTOKEN,
+  SETASYNCROUTERS,
+  SETROUTERLIST,
+  SETHISTORYROUTERS
+} from './mutation-types'
 
 export default {
   [SETTOKEN](state, token) {
     state.token = token
   },
-  [SETASYNCROUTER](state, asyncRouter) {
-    state.asyncRouter = asyncRouter
+  [SETASYNCROUTERS](state, asyncRouters) {
+    state.asyncRouters = asyncRouters
   },
   [SETROUTERLIST](state, routerList) {
     state.routerList = routerList
+  },
+  [SETHISTORYROUTERS](state, route) {
+    state.historyRouters.push(route)
   }
 }
