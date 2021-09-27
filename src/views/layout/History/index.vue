@@ -30,28 +30,21 @@ export default {
   name: 'History',
   data() {
     return {
-      editableTabsValue: 'auth',
+      editableTabsValue: 'dashboard',
       editableTabs: [
         {
           title: '首页',
           name: 'dashboard',
           icon: 'system-dashboard'
-        },
-        {
-          title: '角色管理',
-          name: 'auth',
-          icon: 'system-auth'
-        },
-        {
-          title: '菜单管理',
-          name: 'menu',
-          icon: 'system-menu'
         }
       ],
       tabIndex: 1
     }
   },
-  mounted() {},
+  mounted() {
+    console.log(this.routerList)
+    console.log(this.historyRouters)
+  },
   computed: {
     ...mapState(['routerList', 'historyRouters'])
   },
