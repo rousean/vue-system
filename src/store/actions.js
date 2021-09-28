@@ -1,10 +1,5 @@
-import {
-  SETTOKEN,
-  SETASYNCROUTERS,
-  SETROUTERLIST,
-  SETHISTORYROUTERS
-} from './mutation-types'
-import { reqLogin, reqMenuList } from '../api/index'
+import { SETTOKEN, SETASYNCROUTERS, SETROUTERLIST } from './mutation-types'
+import { reqLogin, reqDynamicMenu } from '../api/index'
 import { setLocalStorage } from '../util/storage'
 import { formatRouter, asyncRouterHandle } from '../util/router-util'
 
@@ -22,9 +17,9 @@ export default {
       return Promise.reject(error)
     }
   },
-  async postRouter({ commit }) {
+  async reqDynamicMenu({ commit }) {
     try {
-      const result = await reqMenuList()
+      const result = await reqDynamicMenu()
       const asyncRouters = result.data
       const routerList = formatRouter(asyncRouters)
       asyncRouterHandle(asyncRouters)
@@ -33,8 +28,5 @@ export default {
     } catch (error) {
       return Promise.reject(error)
     }
-  },
-  setHistoryRouters({ commit }, route) {
-    commit(SETHISTORYROUTERS, route)
   }
 }

@@ -4,4 +4,4 @@ export const SETASYNCROUTERS = 'setAsyncRouters'
 
 export const SETROUTERLIST = 'setRouterList'
 
-export const SETHISTORYROUTERS = 'setHistoryRouters'
+export const ADDHISTORYROUTERS = 'addHistoryRouters'

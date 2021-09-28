@@ -8,8 +8,8 @@ export const reqLogin = (username, password) =>
 export const reqRegister = (username, password) =>
   http('user/register', { username, password }, 'POST')
 
-// 获取导航列表
-export const reqMenuList = () => http('menu/menuList', {}, 'POST')
+// 获取动态导航列表
+export const reqDynamicMenu = () => http('menu/menuList', {}, 'POST')
 
 // 菜单管理界面数据获取
 export const reqQueryMenu = () => http('/menu/queryMenu', {}, 'POST')

@@ -2,7 +2,7 @@ import {
   SETTOKEN,
   SETASYNCROUTERS,
   SETROUTERLIST,
-  SETHISTORYROUTERS
+  ADDHISTORYROUTERS
 } from './mutation-types'
 
 export default {
@@ -15,7 +15,8 @@ export default {
   [SETROUTERLIST](state, routerList) {
     state.routerList = routerList
   },
-  [SETHISTORYROUTERS](state, route) {
-    state.historyRouters.push(route)
+  [ADDHISTORYROUTERS](state, menuName) {
+    let historyRouter = state.routerList.find(item => item.name === menuName)
+    state.historyRouters.push(historyRouter)
   }
 }

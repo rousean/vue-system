@@ -1,5 +1,8 @@
 import axios from 'axios'
 import { Notification } from 'element-ui'
+import router from '../router/index'
+
+import { clearLocalStorage } from '../util/storage'
 
 // 存储请求
 const pendingMap = new Map()
@@ -69,7 +72,7 @@ export function errorHandle(error) {
         error.message = messages.toString()
         break
       case 401:
-        error.message = '未授权,请重新登录!'
+        error.message = 'token过期,请重新登录!'
         break
       case 403:
         error.message = '拒绝访问!'
@@ -114,6 +117,11 @@ export function errorHandle(error) {
     title: '失败',
     message: error.message,
     type: 'error'
+  })
+  clearLocalStorage('token')
+  router.replace({
+    path: 'login',
+    query: { redirect: router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
   })
   return Promise.resolve(error.response)
 }

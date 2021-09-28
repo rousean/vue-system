@@ -11,19 +11,17 @@ router.beforeEach(async (to, from, next) => {
   document.title = getTitle(to.meta.title)
   const token = getLocalStorage('token')
   if (whiteList.indexOf(to.name) > -1) {
-    // 如果在白名单中
     if (token) {
-      // 有token,已经登录
-      next({ path: '/' })
+      // 如果在白名单中
+      next({ path: '/' }) // 有token,已经登录
     } else {
-      // 没有token,
-      next()
+      next() // 没有token
     }
   } else {
     // 不在白名单中
     if (token) {
       if (!asyncRouterFlag && store.getters.getAsyncRouters.length === 0) {
-        await store.dispatch('postRouter')
+        await store.dispatch('reqDynamicMenu')
         const asyncRouters = store.getters.getAsyncRouters
         asyncRouters.forEach(item => {
           router.addRoute('layout', item)

@@ -11,11 +11,11 @@
     class="el-menu-vertical-demo"
     @select="changeRouter"
   >
-    <template v-for="(asyncRouter, i) in asyncRouters">
+    <template v-for="asyncRouter in asyncRouters">
       <el-menu-item
         v-if="asyncRouter.children.length === 0"
         :index="asyncRouter.name"
-        :key="i"
+        :key="asyncRouter.name"
       >
         <svg-icon
           :iconClass="asyncRouter.meta.icon"
@@ -25,7 +25,7 @@
           {{ asyncRouter.meta.title }}
         </span>
       </el-menu-item>
-      <el-submenu v-else :index="asyncRouter.name" :key="i">
+      <el-submenu v-else :index="asyncRouter.name" :key="asyncRouter.name">
         <template slot="title">
           <svg-icon
             :iconClass="asyncRouter.meta.icon"
@@ -36,8 +36,8 @@
           </span>
         </template>
         <el-menu-item
-          v-for="(router, j) in asyncRouter.children"
-          :key="j"
+          v-for="router in asyncRouter.children"
+          :key="router.name"
           :index="router.name"
         >
           <svg-icon
@@ -64,12 +64,12 @@ export default {
     return {}
   },
   computed: {
-    ...mapState(['asyncRouters', 'routerList', 'historyRouters'])
+    ...mapState(['asyncRouters', 'historyRouters'])
   },
   methods: {
     changeRouter(index, indexPath) {
       if (this.historyRouters.indexOf(index) === -1) {
-        this.$store.dispatch('setHistoryRouters', index)
+        this.$store.commit('addHistoryRouters', index)
       }
     }
   }
