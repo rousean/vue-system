@@ -1,12 +1,10 @@
 import http from '../http/http'
 
 // 登录请求
-export const reqLogin = (username, password) =>
-  http('user/login', { username, password }, 'POST')
+export const reqLogin = userInfo => http('user/login', userInfo, 'POST')
 
 // 注册请求
-export const reqRegister = (username, password) =>
-  http('user/register', { username, password }, 'POST')
+export const reqRegister = userInfo => http('user/register', userInfo, 'POST')
 
 // 获取动态导航列表
 export const reqDynamicMenu = () => http('menu/menuList', {}, 'POST')

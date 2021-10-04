@@ -37,11 +37,6 @@ export function addPending(config) {
 
 export function responseHandle(response) {
   if (response.data.code === 1) {
-    // Notification({
-    //   title: '成功',
-    //   message: response.data.message,
-    //   type: 'success'
-    // })
     return Promise.resolve(response)
   } else if (response.data.code === 0) {
     Notification({
@@ -73,6 +68,11 @@ export function errorHandle(error) {
         break
       case 401:
         error.message = 'token过期,请重新登录!'
+        clearLocalStorage('token')
+        router.replace({
+          path: 'login',
+          query: { redirect: router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
+        })
         break
       case 403:
         error.message = '拒绝访问!'
@@ -118,12 +118,8 @@ export function errorHandle(error) {
     message: error.message,
     type: 'error'
   })
-  clearLocalStorage('token')
-  router.replace({
-    path: 'login',
-    query: { redirect: router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
-  })
-  return Promise.resolve(error.response)
+
+  return Promise.reject(error.response)
 }
 
 /**

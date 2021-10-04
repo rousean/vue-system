@@ -44,7 +44,6 @@ axios.interceptors.request.use(
     addPending(config)
     // 所有请求加上token
     if (getLocalStorage('token')) {
-      console.log(getLocalStorage('token'))
       config.headers.Authorization = getLocalStorage('token')
     }
     return config

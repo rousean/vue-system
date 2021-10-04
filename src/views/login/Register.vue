@@ -169,11 +169,16 @@ export default {
     userRegister() {
       this.$refs.registerForm.validate(async valid => {
         if (valid) {
-          const username = this.registerForm.username
-          const password = this.registerForm.password
-          const result = await reqRegister(username, password)
-          console.log(result)
-          if (result.code == 1) {
+          const result = await reqRegister(this.registerForm)
+          if (result.code === 1) {
+            this.$notify.success({
+              title: '成功',
+              message: '用户注册成功！'
+            })
+            this.registerForm.username = ''
+            this.registerForm.password = ''
+            this.registerForm.checkPass = ''
+            this.$refs.username.focus()
             this.$confirm('您已注册成功,是否为您跳转登录页面？', '', {
               distinguishCancelAndClose: true,
               confirmButtonText: '是',
@@ -185,17 +190,17 @@ export default {
                   username: username,
                   password: password
                 })
-              })
-              .catch(action => {
-                this.$notify.success({
-                  title: '失败',
-                  message: '用户注册失败！'
+                this.$message({
+                  type: 'success',
+                  message: '成功跳转!'
                 })
               })
-            this.registerForm.username = ''
-            this.registerForm.password = ''
-            this.registerForm.checkPass = ''
-            this.$refs.username.focus()
+              .catch(action => {
+                this.$message({
+                  type: 'info',
+                  message: '已取消!'
+                })
+              })
           } else {
             this.$notify.error({
               title: '失败',

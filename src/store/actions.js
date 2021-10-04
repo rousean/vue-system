@@ -4,10 +4,9 @@ import { setLocalStorage } from '../util/storage'
 import { formatRouter, asyncRouterHandle } from '../util/router-util'
 
 export default {
-  async postLogin({ commit }, userInfo) {
-    const { username, password } = userInfo
+  async reqLogin({ commit }, userInfo) {
     try {
-      const result = await reqLogin(username, password)
+      const result = await reqLogin(userInfo)
       if (result.code === 1) {
         commit(SETTOKEN, result.data.token)
         setLocalStorage('token', result.data.token)

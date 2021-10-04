@@ -193,8 +193,13 @@ export default {
         if (valide) {
           this.loading = true
           this.$store
-            .dispatch('postLogin', this.loginForm)
+            .dispatch('reqLogin', this.loginForm)
             .then(result => {
+              this.$notify.success({
+                title: '登陆成功',
+                message: '欢迎您再次访问！',
+                type: 'success'
+              })
               this.$router.push({
                 path: this.redirect || '/dashboard',
                 query: this.otherQuery
@@ -203,10 +208,16 @@ export default {
             })
             .catch(error => {
               this.loading = false
+              this.$refs.password.focus()
+              return
             })
         } else {
-          alert('error submit!!')
-          return false
+          this.$message({
+            message: '用户信息提交错误！',
+            type: 'error'
+          })
+          this.$refs.password.focus()
+          return
         }
       })
     }
