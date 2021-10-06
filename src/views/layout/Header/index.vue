@@ -9,7 +9,12 @@
         </span>
       </el-col>
       <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">中间</el-col>
-      <el-col :xs="11" :sm="11" :md="11" :lg="11" :xl="11">右边</el-col>
+      <el-col :xs="11" :sm="11" :md="11" :lg="11" :xl="11">
+        <svg-icon iconClass="system-refresh"></svg-icon>
+        <svg-icon
+          :iconClass="full ? 'system-unfullscreen' : 'system-fullscreen'"
+        ></svg-icon>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -19,7 +24,8 @@ export default {
   name: 'Header',
   data() {
     return {
-      fold: false
+      fold: false,
+      full: false
     }
   },
   methods: {

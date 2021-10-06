@@ -35,6 +35,19 @@ export function addPending(config) {
     })
 }
 
+/**
+ * 生成唯一的每个请求的唯一key
+ * @param {*} config
+ * @returns
+ */
+function getPendingKey(config) {
+  let { url, method, params, data } = config
+  if (typeof data === 'string') {
+    data = JSON.parse(data)
+  }
+  return [url, method, JSON.stringify(params), JSON.stringify(data)].join('&')
+}
+
 export function responseHandle(response) {
   if (response.data.code === 1) {
     return Promise.resolve(response)
@@ -57,14 +70,11 @@ export function responseHandle(response) {
 
 export function errorHandle(error) {
   if (error && error.response) {
-    let errors = ''
-    let messages = ''
+    let msg = ''
     switch (error.response.status) {
       case 400:
-        errors = error.response.data.errors
-        messages = errors.map((err, index, array) => err.msg)
-        // error.message = '错误请求!'
-        error.message = messages.toString()
+        msg = error.response.data.error
+        error.message = msg
         break
       case 401:
         error.message = 'token过期,请重新登录!'
@@ -118,19 +128,5 @@ export function errorHandle(error) {
     message: error.message,
     type: 'error'
   })
-
   return Promise.reject(error.response)
-}
-
-/**
- * 生成唯一的每个请求的唯一key
- * @param {*} config
- * @returns
- */
-function getPendingKey(config) {
-  let { url, method, params, data } = config
-  if (typeof data === 'string') {
-    data = JSON.parse(data)
-  }
-  return [url, method, JSON.stringify(params), JSON.stringify(data)].join('&')
 }
