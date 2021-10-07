@@ -13,7 +13,7 @@
         </div>
         <Aside :collapse="collapse"></Aside>
       </el-aside>
-      <el-main class="main-container">
+      <el-main v-if="isRouterAlive" class="main-container">
         <div class="header-history">
           <Header @emitCollapse="getCollapse"></Header>
           <History></History>
@@ -40,15 +40,27 @@ export default {
     History,
     Footer
   },
+  provide() {
+    return {
+      reload: this.reload
+    }
+  },
   data() {
     return {
       collapse: false,
-      width: ''
+      width: '',
+      isRouterAlive: true
     }
   },
   methods: {
     getCollapse(value) {
       this.collapse = value
+    },
+    reload() {
+      this.isRouterAlive = false
+      this.$nextTick(function() {
+        this.isRouterAlive = true
+      })
     }
   }
 }
