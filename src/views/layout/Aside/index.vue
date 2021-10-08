@@ -11,41 +11,41 @@
     class="el-menu-vertical-demo"
     @select="changeRouter"
   >
-    <template v-for="asyncRouter in asyncRouters">
+    <template v-for="menu in asyncRouters">
       <el-menu-item
-        v-if="asyncRouter.children.length === 0"
-        :index="asyncRouter.name"
-        :key="asyncRouter.name"
+        v-if="menu.children.length === 0"
+        :index="menu.name"
+        :key="menu.name"
       >
         <svg-icon
-          :iconClass="asyncRouter.meta.icon"
+          :iconClass="menu.meta.icon"
           className="first-level-icon"
         ></svg-icon>
         <span slot="title">
-          {{ asyncRouter.meta.title }}
+          {{ menu.meta.title }}
         </span>
       </el-menu-item>
-      <el-submenu v-else :index="asyncRouter.name" :key="asyncRouter.name">
+      <el-submenu v-else :index="menu.name" :key="menu.name">
         <template slot="title">
           <svg-icon
-            :iconClass="asyncRouter.meta.icon"
+            :iconClass="menu.meta.icon"
             className="first-level-icon"
           ></svg-icon>
           <span slot="title">
-            {{ asyncRouter.meta.title }}
+            {{ menu.meta.title }}
           </span>
         </template>
         <el-menu-item
-          v-for="router in asyncRouter.children"
-          :key="router.name"
-          :index="router.name"
+          v-for="item in menu.children"
+          :key="item.name"
+          :index="item.name"
         >
           <svg-icon
-            :iconClass="router.meta.icon"
+            :iconClass="item.meta.icon"
             className="second-level-icon"
           ></svg-icon>
           <span slot="title">
-            {{ router.meta.title }}
+            {{ item.meta.title }}
           </span>
         </el-menu-item>
       </el-submenu>
@@ -60,17 +60,12 @@ export default {
   props: {
     collapse: Boolean
   },
-  data() {
-    return {}
-  },
   computed: {
     ...mapState(['asyncRouters', 'historyRouters'])
   },
   methods: {
     changeRouter(index, indexPath) {
-      if (this.historyRouters.indexOf(index) === -1) {
-        this.$store.commit('addHistoryRouters', index)
-      }
+      this.$store.commit('addHistoryRouters', index)
     }
   }
 }

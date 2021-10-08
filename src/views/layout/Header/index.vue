@@ -41,7 +41,11 @@
             "
           ></svg-icon>
         </span>
-        <el-avatar icon="el-icon-user-solid" size="small"></el-avatar>
+        <el-avatar
+          icon="el-icon-user-solid"
+          size="small"
+          :split-button="true"
+        ></el-avatar>
         <el-dropdown class="el-dropdown">
           <span class="el-dropdown-link">
             管理员
@@ -55,7 +59,7 @@
               ></svg-icon>
               个人信息
             </el-dropdown-item>
-            <el-dropdown-item>
+            <el-dropdown-item @click.native="loginOut">
               <svg-icon
                 className="header-svg-icon"
                 iconClass="system-login-out"
@@ -70,6 +74,7 @@
 </template>
 
 <script>
+import { clearLocalStorage } from '../../../util/storage'
 export default {
   name: 'Header',
   inject: ['reload'],
@@ -165,6 +170,11 @@ export default {
         isFull = false
       }
       return isFull
+    },
+    // 退出登录
+    loginOut() {
+      clearLocalStorage('token')
+      this.$router.push('/login')
     }
   }
 }

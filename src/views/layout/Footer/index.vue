@@ -2,7 +2,7 @@
   <div class="footer-container">
     <span>Powered by Rousean</span>
     <el-divider direction="vertical"></el-divider>
-    <span>Copyright 路索</span>
+    <span>Copyright 路索生活</span>
   </div>
 </template>
 
