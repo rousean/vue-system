@@ -6,4 +6,4 @@ export const SETROUTERLIST = 'setRouterList'
 
 export const ADDHISTORYROUTERS = 'addHistoryRouters'
 
-export const DELHISTORYROUTERS = 'delhistoryrouters'
+export const DELHISTORYROUTERS = 'delHistoryRouters'

@@ -117,7 +117,6 @@ export default {
     changeFold() {
       this.asideFold = !this.asideFold
       this.$emit('emitCollapse', this.asideFold)
-      console.log(this.$route)
     },
     // 刷新当前组件
     clickRefresh() {

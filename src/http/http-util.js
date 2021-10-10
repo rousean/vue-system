@@ -80,8 +80,8 @@ export function errorHandle(error) {
         error.message = 'token过期,请重新登录!'
         clearLocalStorage('token')
         router.replace({
-          path: 'login',
-          query: { redirect: router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
+          path: 'login'
+          // query: { redirect: router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
         })
         break
       case 403:
